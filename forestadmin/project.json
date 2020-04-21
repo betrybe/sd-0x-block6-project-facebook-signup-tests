@@ -1,0 +1,110 @@
+{
+  "project": {
+    "name": "betrybe/sd-0x-block6-project-facebook-signup",
+    "description": "Projeto de HTML, CSS, JavaScript & Flexbox.",
+    "enabled": true,
+    "deadline": "YYYY-MM-DD 17:10:00",
+    "requirements": [
+      {
+        "description": "Posicionamento de elementos utilizando CSS Flexbox.",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Uma barra azul na parte superior da página do Facebook com a classe `\"top-bar\"`.",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "O logotipo do Facebook no canto superior esquerdo com a classe `\"facebook-logo\"`.",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Um campo de entrada de texto no canto superior direito para receber o email ou o telefone do usuário com o id `\"user-email-phone\"`.",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Um título com o texto 'Email ou telefone' acima do campo de entrada de texto para email ou telefone com o id `\"user-email-phone-label\".",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Um campo de entrada de texto para digitar a senha do usuário, posicionado no canto superior direito. O campo também deve estar posicionado à direita do campo de entrada de texto para email ou telefone.",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Um botão com o id `\"button-login\"` e o texto 'Entrar', à direita do campo de entrada de texto para senha.",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Um texto 'O Facebook ajuda você a se conectar e compartilhar com as pessoas que fazem parte da sua vida.' abaixo da barra superior azul do Facebook, no canto esquerdo.",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Uma imagem com id `\"facebook-networking\"`, que ficará abaixo do item 8. Essa imagem deve conter o mapa do mundo e as conexões entre as pessoas.",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Um texto 'Abra uma conta' posicionado abaixo da caixa de texto de email/telefone",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Um texto 'É rápido e fácil.' posicionado abaixo do texto 'Abra uma conta'",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Um campo de entrada de texto para o nome do usuário. Posicione esse campo abaixo do texto 'É rápido e fácil.'",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Um campo de entrada de texto para o sobrenome do usuário. Posicione esse campo à direita do campo nome",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Um campo de entrada de texto para o celular ou email. Posicione esse campo abaixo do sobrenome do usuário",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Um campo de entrada de texto para a nova senha do usuário. Posicione esse campo abaixo do celular/email",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Um texto 'Data de nascimento' abaixo do campo de entrada de texto de nova senha",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Um campo para selecionar a data de nascimento",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Um texto 'Gênero' abaixo dos campos de data",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Três radio buttons com os nomes 'Feminino', 'Masculino' e 'Personalizado'",
+        "enabled": true,
+        "bonus": false
+      },
+      {
+        "description": "Um botão com o texto 'Cadastre-se' e id `\"facebook-register\"`.",
+        "enabled": true,
+        "bonus": false
+      }
+    ]
+  }
+}

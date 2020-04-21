@@ -1,0 +1,22 @@
+{
+  "Posicionamento de elementos utilizando CSS Flexbox": 0,
+  "Uma barra azul na parte superior da página do **Facebook** com a classe top-bar": 0,
+  "O logotipo do Facebook no canto superior esquerdo com a classe facebook-logo": 0,
+  "Um campo de entrada de texto no canto superior direito para receber o email ou o telefone do usuário com o id user-email-phone": 0,
+  "Um título com o texto \"Email ou telefone\" acima do campo de entrada de texto para email ou telefone com o id user-email-phone-label": 0,
+  "Um campo de entrada de texto para digitar a senha do usuário": 0,
+  "Um botão com o id \"button-login\" e o texto \"Entrar\", à direita do campo de entrada de texto para senha": 0,
+  "Um texto \"O Facebook ajuda você a se conectar e compartilhar com as pessoas que fazem parte da sua vida.\"": 0,
+  "Uma imagem com id facebook-networking, que ficará abaixo do item 8. Essa imagem deve conter o mapa do mundo e as conexões entre as pessoas": 0,
+  "Um texto \"Abra uma conta\" posicionado abaixo da caixa de texto de email/telefone": 0,
+  "Um texto \"É rápido e fácil.\" posicionado abaixo do texto \"Abra uma conta\"": 0,
+  "Um campo de entrada de texto para o nome do usuário. Posicione esse campo abaixo do texto \"É rápido e fácil.\"": 0,
+  "Um campo de entrada de texto para o sobrenome do usuário. Posicione esse campo à direita do campo nome": 0,
+  "Um campo de entrada de texto para o celular ou email. Posicione esse campo abaixo do sobrenome do usuário": 0,
+  "Um campo de entrada de texto para a nova senha do usuário. Posicione esse campo abaixo do celular/email": 0,
+  "Um texto \"Data de nascimento\" abaixo do campo de entrada de texto de nova senha": 0,
+  "Um campo para selecionar a data de nascimento": 0,
+  "Um texto \"Gênero\" abaixo dos campos de data": 0,
+  "Três `radio buttons` com os nomes \"Feminino\", \"Masculino\" e \"Personalizado\"": 0,
+  "Um botão com o texto \"Cadastre-se\" e id \"facebook-register\"": 0
+}
