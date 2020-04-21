@@ -3,7 +3,7 @@
     "name": "betrybe/sd-0x-block6-project-facebook-signup",
     "description": "Projeto de HTML, CSS, JavaScript & Flexbox.",
     "enabled": true,
-    "deadline": "YYYY-MM-DD 17:10:00",
+    "deadline": "2020-04-30 17:10:00",
     "requirements": [
       {
         "description": "Posicionamento de elementos utilizando CSS Flexbox.",
