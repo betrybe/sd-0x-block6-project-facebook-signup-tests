@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/betrybe/sd-0x-block6-project-facebook-signup-tests#readme",
   "dependencies": {
+    "@david-boydell/cypress-layout": "0.0.2",
     "cypress": "^4.1.0",
     "cypress-multi-reporters": "^1.2.4",
     "mocha": "^7.1.0",

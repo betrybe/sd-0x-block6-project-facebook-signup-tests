@@ -1,5 +1,6 @@
 const TOP_BAR_SELECTOR = '.top-bar';
 const FACEBOOK_LOGOTIPO_SELECTOR = '.facebook-logo';
+const FACEBOOK_LOGIN_FORM_SELECTOR = 'form.facebook-login';
 const USER_IDENTIFIER_INPUT_SELECTOR = 'input#user-email-phone';
 const USER_IDENTIFIER_LABEL_SELECTOR = '#user-email-phone-label';
 const USER_IDENTIFIER_LABEL_TEXT_SELECTOR = 'Email ou telefone';
@@ -63,12 +64,7 @@ describe('Facebook Signup', () => {
     });
 
     it('A classe top-bar deve possuir a propriedade `background-color: rgb(66, 103, 178)`', () => {
-      const properties = [{
-        key: 'background-color',
-        value: 'rgb(66, 103, 178)',
-      }];
-      
-      checkClass('top-bar', properties);    
+      cy.get('.top-bar').should('have.css', 'background-color', 'rgb(66, 103, 178)');
     });
   });
 
@@ -78,16 +74,22 @@ describe('Facebook Signup', () => {
     });
     
     it('O atributo src deve apontar para ./imgs/facebook-logo.png', () => {
-      cy.get(FACEBOOK_LOGOTIPO_SELECTOR).should('have.attr', 'src').should('include','./imgs/facebook-logo.png')
+      cy.get(FACEBOOK_LOGOTIPO_SELECTOR).should('have.attr', 'src').should('equal','./imgs/facebook-logo.png')
     });
 
-    it('A classe facebook-logo deve possuir a propriedade `float: left`', () => {
-      const properties = [{
-        key: 'float',
-        value: 'left',
-      }];
-      
-      checkClass('facebook-logo', properties);    
+    it('O elemento img deve estar alinhado a esquerda dentro da barra azul', () => {
+      cy.get('.facebook-logo').should('be.leftAligned', '.top-bar');
+    });
+  });
+
+  describe('Um formulário de autenticação (login) no canto superior direito', () => {
+    it('Existe formulário possui uma classe chamada facebook-login', () => {
+      cy.get(FACEBOOK_LOGIN_FORM_SELECTOR).should('exist');
+    });
+
+
+    it('O formulário deve estar alinhado a direita dentro da barra azul', () => {
+      cy.get('.facebook-login').should('be.rightAligned', '.top-bar');
     });
   });
 
