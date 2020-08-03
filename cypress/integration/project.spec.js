@@ -72,8 +72,23 @@ describe('Facebook Signup', () => {
     });
   });
 
-  it('O logotipo do Facebook no canto superior esquerdo com a classe facebook-logo', () => {
-    cy.get(FACEBOOK_LOGOTIPO_SELECTOR).should('exist');
+  describe('O logotipo do Facebook no canto superior esquerdo com a classe facebook-logo', () => {
+    it('Existe um elemento img com a classe facebook-logo', () => {
+      cy.get(FACEBOOK_LOGOTIPO_SELECTOR).should('exist');
+    });
+    
+    it('O atributo src deve apontar para ./imgs/facebook-logo.png', () => {
+      cy.get(FACEBOOK_LOGOTIPO_SELECTOR).should('have.attr', 'src').should('include','./imgs/facebook-logo.png')
+    });
+
+    it('A classe facebook-logo deve possuir a propriedade `float: left`', () => {
+      const properties = [{
+        key: 'float',
+        value: 'left',
+      }];
+      
+      checkClass('facebook-logo', properties);    
+    });
   });
 
   // it('Um campo de entrada de texto no canto superior direito para receber o email ou o telefone do usuário com o id user-email-phone', () => {
