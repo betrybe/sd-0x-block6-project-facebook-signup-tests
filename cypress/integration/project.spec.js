@@ -3,7 +3,9 @@ const FACEBOOK_LOGOTIPO_SELECTOR = '.facebook-logo';
 const FACEBOOK_LOGIN_FORM_SELECTOR = 'form.facebook-login';
 const USER_IDENTIFIER_INPUT_SELECTOR = 'input#user-email-phone';
 const USER_IDENTIFIER_LABEL_SELECTOR = '#user-email-phone-label';
+const USER_PASSWORD_LABEL_SELECTOR = '#user-password-label';
 const USER_IDENTIFIER_LABEL_TEXT_SELECTOR = 'Email ou telefone';
+const USER_PASSWORD_LABEL_TEXT_SELECTOR = 'Senha';
 const USER_PASSWORD_INPUT_SELECTOR = 'input#user-password';
 const USER_LOGIN_BUTTON_SELECTOR = '#button-login';
 const FACEBOOK_SLOGAN = 'O Facebook ajuda você a se conectar e compartilhar com as pessoas que fazem parte da sua vida.';
@@ -25,20 +27,27 @@ const checkPlaceholder = (elements, placeholder) => (
   elements.some((element) => Cypress.$(element).attr('placeholder') === placeholder)
 );
 
-const checkClass = (className, properties = []) => {
-  cy.document().then((doc) => {
-    const e = doc.createElement('div');
-    e.className = className;
-    doc.body.appendChild(e);
-    cy.get(`div.${className}`).should(($el) => {
-      properties.map(({ key, value, match }) => {
-        if (match) {
-          expect($el.css(key)).to.have.string(value);
-        } else {
-          expect($el).to.have.css(key, value);
-        }
-      });
-    });
+
+const evaluateOffset = (doc, selector, offsetType) => {
+  return doc.querySelector(selector).getBoundingClientRect()[`${offsetType}`];
+};
+
+
+const checkIsRightOf = (elementLeftSelector, elementRightSelector) => {
+  cy.document().then(doc => {
+    const elementLeft = {
+      top: evaluateOffset(doc, elementLeftSelector, 'top'),
+      left: evaluateOffset(doc, elementLeftSelector, 'left'),
+      width: evaluateOffset(doc, elementLeftSelector, 'width'),
+    };
+
+    const elementRight = {
+      top: evaluateOffset(doc, elementRightSelector, 'top'),
+      left: evaluateOffset(doc, elementRightSelector, 'left'),
+      width: evaluateOffset(doc, elementRightSelector, 'width'),
+    };
+
+    expect(elementLeft.top == elementRight.top && elementRight.left > elementLeft.left + elementLeft.width).to.be.true;
   });
 };
 
@@ -91,38 +100,60 @@ describe('Facebook Signup', () => {
     it('O formulário deve estar alinhado a direita dentro da barra azul', () => {
       cy.get('.facebook-login').should('be.rightAligned', '.top-bar');
     });
+
+    it('Um título com o texto "Email ou telefone" acima do campo de entrada de texto para email ou telefone com o id user-email-phone-label', () => {
+      cy.get(USER_IDENTIFIER_LABEL_SELECTOR)
+        .should('exist')
+        .should('have.text', USER_IDENTIFIER_LABEL_TEXT_SELECTOR)
+        .should('be.above', USER_IDENTIFIER_INPUT_SELECTOR, 1);
+    });
+  
+    it('Um campo de entrada de texto no canto superior direito para receber o email ou o telefone do usuário com o id user-email-phone', () => {
+      cy.get(USER_IDENTIFIER_INPUT_SELECTOR).should('exist');
+    });
+
+    it('Um título com o texto "Senha" acima do campo de entrada de texto para senha com o id user-password', () => {
+      cy.get(USER_PASSWORD_LABEL_SELECTOR)
+        .should('exist')
+        .should('have.text', USER_PASSWORD_LABEL_TEXT_SELECTOR)
+        .should('be.above', USER_PASSWORD_INPUT_SELECTOR, 1);
+    });
+
+    it('Um campo de entrada de texto para digitar a senha do usuário, à direita do campo de entrada de texto para email ou telefone', () => {
+      cy.get(USER_PASSWORD_INPUT_SELECTOR).should('have.attr', 'type', 'password');
+
+      checkIsRightOf(USER_IDENTIFIER_INPUT_SELECTOR, USER_PASSWORD_INPUT_SELECTOR);
+
+    });
+
+    it('Um botão com o id "button-login" e o texto "Entrar", à direita do campo de entrada de texto para senha', () => {
+      const content = 'my-user';
+      let alerted = false;
+  
+      cy.on('window:alert', (text) => {
+        expect(text).to.equal(content);
+        alerted = true;
+      });
+
+      checkIsRightOf(USER_PASSWORD_INPUT_SELECTOR, USER_LOGIN_BUTTON_SELECTOR);
+
+      cy.get(USER_IDENTIFIER_INPUT_SELECTOR).type(content);
+      cy.get(USER_LOGIN_BUTTON_SELECTOR)
+        .should('exist')
+        .should('have.text', 'Entrar')
+        .click().then(()=> {
+          expect(alerted).to.eq(true);
+        });
+    });
   });
 
-  // it('Um campo de entrada de texto no canto superior direito para receber o email ou o telefone do usuário com o id user-email-phone', () => {
-  //   cy.get(USER_IDENTIFIER_INPUT_SELECTOR).should('exist');
-  // });
+  
 
-  // it('Um título com o texto "Email ou telefone" acima do campo de entrada de texto para email ou telefone com o id user-email-phone-label', () => {
-  //   cy.get(USER_IDENTIFIER_LABEL_SELECTOR)
-  //     .should('exist')
-  //     .should('have.text', USER_IDENTIFIER_LABEL_TEXT_SELECTOR);
-  //     // assert position
-  // });
+  
 
-  // it('Um campo de entrada de texto para digitar a senha do usuário', () => {
-  //   cy.get(USER_PASSWORD_INPUT_SELECTOR).should('have.attr', 'type', 'password');
-  //   // assert position
-  // });
+  
 
-  // it('Um botão com o id "button-login" e o texto "Entrar", à direita do campo de entrada de texto para senha', () => {
-  //   const content = 'my-user';
-
-  //   cy.on('window:alert', (text) => {
-  //     expect(text).to.equal(content);
-  //   });
-
-  //   cy.get(USER_IDENTIFIER_INPUT_SELECTOR).type(content);
-  //   cy.get(USER_LOGIN_BUTTON_SELECTOR)
-  //     .should('exist')
-  //     .should('have.text', 'Entrar')
-  //     .click();
-  //   // assert position
-  // });
+  
 
   // it('Um texto "O Facebook ajuda você a se conectar e compartilhar com as pessoas que fazem parte da sua vida."', () => {
   //   cy.contains(FACEBOOK_SLOGAN);
