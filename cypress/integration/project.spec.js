@@ -397,10 +397,53 @@ describe('Facebook Signup', () => {
 
 
   
+  describe("Crie um botão para finalizar o cadastro dentro do formulário criado no requisito 9", () => {
+    it('Um botão com o texto "Cadastre-se" e id "facebook-register"', () => {
+      cy.get(REGISTER_BUTTON_SELECTOR)
+        .should('exist')
+        .should('have.text', 'Cadastrar-se');
+    });
 
-  // it('Um botão com o texto "Cadastre-se" e id "facebook-register"', () => {
-  //   cy.get(REGISTER_BUTTON_SELECTOR)
-  //     .should('exist')
-  //     .click();
-  // });
+    it('Deve ter a propriedade type igual a submit', () => {
+      cy.get(REGISTER_BUTTON_SELECTOR).should('have.attr', 'type').should('equal','submit')
+    });
+  });
+
+  describe('Ao clicar no botão "Cadastrar-se" valide se todos os campos foram preenchidos', () => {
+    it('Exibir um alerta com a mensagem "Campos inválidos" caso pelo menos um campo não esteja preenchido', () => {
+      
+    });    
+  });
+
+  describe('Ao clicar no botão "Cadastrar-se" valide se a idade da pessoa é maior que 18 anos de acordo com o valor do campo data de nascimento', () => {
+    it('Exibir um alerta com a mensagem "Você não possui idade mínima para criar uma conta" caso a idade da pessoa seja menor que 18 anos', () => {
+      
+    });    
+  });
+
+  describe('Ao clicar no botão "Cadastrar-se" valide se a senha preenchida é segura', () => {
+    it('Defina uma regra de segurança (use a sua criatividade) e caso a senha não atenda essa regra exibir um alerta com a mensage "Senha fraca"', () => {
+      
+    });    
+  });
+
+  describe('Se o usuário selecionar no campo Gênero a opção "Personalizado" adicione um novo campo', () => {
+    it('O novo campo dever ser uma campo de texto com o atributo name "custom_gender" e um placeholder "Gênero (opcional)"', () => {
+      
+    });    
+
+    it('O novo campo deve estar posicionado entre as opções de gênero e o botão "Cadastrar-se"', () => {
+      
+    });
+
+    it('Este campo não é obrigatório', () => {
+      
+    });
+  });
+
+  describe('Se o formulário estiver preenchido e validado exibir uma mensagem para o usuário', () => {
+    it('Exibir um alerta com uma mensagem no modelo "Bem vindo(a) ao facebook, Jonh Doe" (substitua John Doe pelo nome e sobrenome da pessoa)', () => {
+      
+    });
+  });
 });
