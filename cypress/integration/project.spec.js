@@ -237,7 +237,7 @@ describe('Facebook Signup', () => {
     it('Dentro do container com a classe left-content deve existir um parágrafo com id facebook-slogan e o texto "O Facebook ajuda você a se conectar e compartilhar com as pessoas que fazem parte da sua vida."', () => {
       cy.get('.main-content > .left-content #facebook-slogan')
         .should('exist')
-        .should('have.text', FACEBOOK_SLOGAN);
+        .contains(FACEBOOK_SLOGAN);
     });
 
     it('Dentro do container com a classe left-content deve existir abaixo do parágrafo com id facebook-slogan uma imagem com id facebook-networking e o src com o endereço `imgs/networking.png`.', () => {
