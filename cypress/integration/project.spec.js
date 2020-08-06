@@ -68,25 +68,6 @@ const checkIsBelowOf = (elementAboveSelector, elementBelowSelector) => {
   });
 };
 
-const checkIsSameRow = (elementOneSelector, elementTwoSelector, elementThreeSelector) => {
-  cy.document().then(doc => {
-    const elementOne = {
-      top: evaluateOffset(doc, elementOneSelector, 'top'),
-    };
-
-    const elementTwo = {
-      top: evaluateOffset(doc, elementTwoSelector, 'top'),
-    };
-
-    const elementThree = {
-      top: evaluateOffset(doc, elementThreeSelector, 'top'),
-    };
-
-    expect(elementOne.top === elementTwo.top === elementThree.top).to.be.true;
-  });
-};
-
-
 describe('Facebook Signup', () => {
   beforeEach(() => {
     cy.visit('./index.html');
