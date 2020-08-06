@@ -210,7 +210,7 @@ describe('Facebook Signup', () => {
   });
 
   describe("Crie um container com a classe main-content abaixo da barra azul para agrupar o conteúdo principal da página", () => {
-    it('Crie um elemento com a classe main-content ', () => {
+    it('Crie um elemento com a classe main-content', () => {
       cy.get('.main-content').should('exist');
     });
 
@@ -218,7 +218,6 @@ describe('Facebook Signup', () => {
       cy.get('.main-content')
         .should('have.css', 'display', 'flex')
         .should('have.css', 'flex-direction', 'row');
-
     });
 
     it('O elemento deve posicionado abaixo da barra azul', () => {
@@ -226,7 +225,7 @@ describe('Facebook Signup', () => {
     });
   });
 
-  describe("Crie um subcontainer com a classe left-content para colocar o conteúdo do lado esquerdo dentro do container com a classe main-content ", () => {
+  describe("Crie um subcontainer com a classe left-content para colocar o conteúdo do lado esquerdo dentro do container com a classe main-content", () => {
     it('O subcontainer deve ter a classe left-content', () => {
       cy.get('.main-content > .left-content').should('exist');
     });
@@ -246,7 +245,6 @@ describe('Facebook Signup', () => {
         .should('exist')
         .should('have.attr', 'src', 'imgs/networking.png');
         
-
       checkIsBelowOf(FACEBOOK_SLOGAN_SELECTOR, FACEBOOK_NETWORKING_IMG_SELECTOR);
     });
   });
@@ -264,7 +262,6 @@ describe('Facebook Signup', () => {
       cy.get('.main-content').should('have.css', 'justify-content');
     });
 
-  
     it('Dentro do subcontainer com a classe right-content deve existir um elemento h1 com o texto "Abra uma conta"', () => {
       cy.get('.main-content > .right-content h1').contains(OPEN_ACCOUNT_MESSAGE);
     });
@@ -502,7 +499,7 @@ describe('Facebook Signup', () => {
     });
 
     describe('Exibir o gênero preenchido de acordo com as seguintes regras', () => {
-      it('Caso seja Masculino exibir "Masculino"', () => {
+      it('Caso a opção selecionada seja Masculino exibir "Masculino"', () => {
         fillForm();
         cy.get('input[name="gender"]').check('Masculino')
         cy.get(REGISTER_BUTTON_SELECTOR).click();
@@ -510,7 +507,7 @@ describe('Facebook Signup', () => {
         cy.get('.main-content .right-content').contains('Masculino');
       });
 
-      it('Caso seja Feminino exibir "Feminino"', () => {
+      it('Caso a opção selecionada seja Feminino exibir "Feminino"', () => {
         fillForm();
         cy.get('input[name="gender"]').check('Feminino')
         cy.get(REGISTER_BUTTON_SELECTOR).click();
@@ -518,7 +515,7 @@ describe('Facebook Signup', () => {
         cy.get('.main-content .right-content').contains('Feminino');
       });
 
-      describe('Caso seja Personalizado exibir "Personalizado"', () => {
+      describe('Caso a opção selecionada seja Personalizado exibir "Personalizado":', () => {
         it('Caso tenha preenchido o campo "Gênero (Opcional) exibir "Personalizado: (valor preenchido)"', () => {
           let genderOptional = 'LGBT';
           fillForm();
