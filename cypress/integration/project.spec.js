@@ -48,12 +48,7 @@ const checkIsRightOf = (elementLeftSelector, elementRightSelector) => {
       width: evaluateOffset(doc, elementRightSelector, 'width'),
     };
 
-    console.log(elementLeftSelector);
-    console.log(elementLeft);
-    console.log(elementRightSelector);
-    console.log(elementRight);
-
-    expect(elementLeft.top == elementRight.top && elementRight.left >= elementLeft.left + elementLeft.width).to.be.true;
+    expect(elementLeft.top === elementRight.top && elementRight.left >= elementLeft.left + elementLeft.width).to.be.true;
   });
 };
 
