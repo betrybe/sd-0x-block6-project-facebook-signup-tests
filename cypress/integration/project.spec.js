@@ -48,7 +48,12 @@ const checkIsRightOf = (elementLeftSelector, elementRightSelector) => {
       width: evaluateOffset(doc, elementRightSelector, 'width'),
     };
 
-    expect(elementLeft.top == elementRight.top && elementRight.left > elementLeft.left + elementLeft.width).to.be.true;
+    console.log(elementLeftSelector);
+    console.log(elementLeft);
+    console.log(elementRightSelector);
+    console.log(elementRight);
+
+    expect(elementLeft.top == elementRight.top && elementRight.left >= elementLeft.left + elementLeft.width).to.be.true;
   });
 };
 
@@ -231,48 +236,84 @@ describe('Facebook Signup', () => {
   });
 
 
-  describe("Crie agora o conteúdo abaixo da barra superior com os seguintes itens", () => {
-    it('Crie um elemento após a barra lateral com a classe main-content (deve ser um flex container) ', () => {
-      cy.get('.main-content').should('have.css', 'display', 'flex');
-
-      checkIsBelowOf('.top-bar', '.main-content');
+  describe("Crie agora o conteúdo abaixo da barra superior para ser o conteúdo principal", () => {
+    it('Crie um elemento com a classe main-content ', () => {
+      cy.get('.main-content').should('exist');
     });
 
-    it("Crie dois elementos container para organizar o conteúdo de cada lado", () => {
-      cy.get('.main-content').children().eq(0).should('exist');
-      cy.get('.main-content').children().eq(1).should('exist');
-      cy.get('.main-content').children().eq(2).should('not.exist');
+    it('O elemento deve ser um flex container no eixo horizontal', () => {
+      cy.get('.main-content')
+        .should('have.css', 'display', 'flex')
+        .should('have.css', 'flex-direction', 'row');
+
+    });
+
+    it('O elemento deve posicionado abaixo da barra azul', () => {
+      checkIsBelowOf('.top-bar', '.main-content');
+    });
+  });
+
+  describe("Dentro do container com a classe main-content crie um subcontainer para colocar o conteúdo do lado esquerdo", () => {
+    it('O subcontainer deve ter a classe left-content', () => {
+      cy.get('.main-content > .left-content').should('exist');
+    });
+
+    it('A classe left-content deve ter uma largura de 800px', () => {
+      cy.get('.main-content > .left-content').should('have.css', 'width', '800px');
+    });
+
+    it('Dentro do container com a classe left-content deve existir um parágrafo com id facebook-slogan e o texto "O Facebook ajuda você a se conectar e compartilhar com as pessoas que fazem parte da sua vida."', () => {
+      cy.get('.main-content > .left-content #facebook-slogan')
+        .should('exist')
+        .should('have.text', FACEBOOK_SLOGAN);
+
+      // children().eq(0).get('#facebook-slogan').contains(FACEBOOK_SLOGAN);
+    });
+
+    it('Dentro do container com a classe left-content deve existir abaixo do parágrafo com id facebook-slogan uma imagem com id facebook-networking e o src com o endereço `imgs/networking.png`.', () => {
+      cy.get('.main-content > .left-content img#facebook-networking')
+        .should('exist')
+        .should('have.attr', 'src', 'imgs/networking.png');
+        
+
+      checkIsBelowOf(FACEBOOK_SLOGAN_SELECTOR, FACEBOOK_NETWORKING_IMG_SELECTOR);
+    });
+  });
+
+  describe("Dentro do container com a classe main-content crie um subcontainer para colocar o conteúdo do lado direito", () => {
+    it('O novo subcontainer deve ter a classe right-content', () => {
+      cy.get('.main-content > .right-content').should('exist');
+    });
+
+    it('A classe right-content deve ter uma largura de 300px', () => {
+      cy.get('.main-content > .right-content').should('have.css', 'width', '300px');
     });
 
     it('Utilize na classe main-content a propriedade justify-content com o valor mais apropriado para alinhar os conteúdos', () => {
       cy.get('.main-content').should('have.css', 'justify-content');
     });
 
-    it('Dentro do primeiro container existe um parágrafo com id facebook-slogan e o texto "O Facebook ajuda você a se conectar e compartilhar com as pessoas que fazem parte da sua vida."', () => {
-      cy.get('.main-content').children().eq(0).get('#facebook-slogan').contains(FACEBOOK_SLOGAN);
+  
+    it('Dentro do subcontainer com a classe right-content deve existir um elemento h1 com o texto "Abra uma conta"', () => {
+      cy.get('.main-content > .right-content h1').contains(OPEN_ACCOUNT_MESSAGE);
     });
 
-    it('Dentro do primeiro container, abaixo do texto do passo anterior existe uma imagem com id facebook-networking.', () => {
-      cy.get('.main-content').children().eq(0).get(FACEBOOK_NETWORKING_IMG_SELECTOR)
+    it('Dentro do subcontainer com a classe right-content deve existir um elemento com a classe quick-easy com o texto "É rápido e fácil." posicionado abaixo do texto "Abra uma conta"', () => {
+      cy.get('.main-content > .right-content .quick-easy')
         .should('exist')
-        .should(($el) => {
-          const src = $el.attr('src');
-          expect(src).to.match(/networking/);
-        });
+        .contains(QUICK_AND_SIMPLE_MESSAGE);
 
-      checkIsBelowOf(FACEBOOK_SLOGAN_SELECTOR, FACEBOOK_NETWORKING_IMG_SELECTOR);
+      checkIsBelowOf('.main-content > .right-content h1', '.main-content > .right-content .quick-easy');
     });
 
-    it('Dentro do segundo container, existe um texto "Abra uma conta"', () => {
-      cy.get('.main-content').children().eq(1).children().eq(0).contains(OPEN_ACCOUNT_MESSAGE);
+    it('Dentro do subcontainer com a classe right-content deve existir um elemento form abaixo do texto "É rápido e fácil."', () => {
+      cy.get('.main-content > .right-content form').should('exist');
+
+      checkIsBelowOf('.main-content > .right-content .quick-easy', '.main-content > .right-content form');
     });
 
-    it('Dentro do segundo container, existe abaixo do texto anterior um outro texto "É rápido e fácil." posicionado abaixo do texto "Abra uma conta"', () => {
-      cy.get('.main-content').children().eq(1).children().eq(1).contains(QUICK_AND_SIMPLE_MESSAGE);
-    });
-
-    it('Ainda dentro do segundo container, abaixo do texto anterior crie um elemento form', () => {
-      cy.get('.main-content').children().eq(1).children().eq(2).get('form').should('exist')
+    it('O elemento com a classe right-content deve estar a direita do elemento com a classe left-content', () => {
+      checkIsRightOf('.main-content > .left-content', '.main-content > .right-content');
     });
   });
 
@@ -401,7 +442,7 @@ describe('Facebook Signup', () => {
     it('Um botão com o texto "Cadastre-se" e id "facebook-register"', () => {
       cy.get(REGISTER_BUTTON_SELECTOR)
         .should('exist')
-        .should('have.text', 'Cadastrar-se');
+        .should('have.text', 'Cadastre-se');
     });
 
     it('Deve ter a propriedade type igual a submit', () => {
@@ -410,40 +451,123 @@ describe('Facebook Signup', () => {
   });
 
   describe('Ao clicar no botão "Cadastrar-se" valide se todos os campos foram preenchidos', () => {
-    it('Exibir um alerta com a mensagem "Campos inválidos" caso pelo menos um campo não esteja preenchido', () => {
-      
-    });    
-  });
+    it('Exibir uma mensagem "Campos inválidos" dentro do formulário caso pelo menos um campo não esteja preenchido', () => {
+      cy.get('input[name="firstname"]').type("John");
+      cy.get('input[name="lastname"]').type("Doe");
+      cy.get(REGISTER_BUTTON_SELECTOR).click();
 
-  describe('Ao clicar no botão "Cadastrar-se" valide se a idade da pessoa é maior que 18 anos de acordo com o valor do campo data de nascimento', () => {
-    it('Exibir um alerta com a mensagem "Você não possui idade mínima para criar uma conta" caso a idade da pessoa seja menor que 18 anos', () => {
-      
-    });    
-  });
-
-  describe('Ao clicar no botão "Cadastrar-se" valide se a senha preenchida é segura', () => {
-    it('Defina uma regra de segurança (use a sua criatividade) e caso a senha não atenda essa regra exibir um alerta com a mensage "Senha fraca"', () => {
-      
+      cy.get('.main-content form').contains('Campos inválidos');
     });    
   });
 
   describe('Se o usuário selecionar no campo Gênero a opção "Personalizado" adicione um novo campo', () => {
-    it('O novo campo dever ser uma campo de texto com o atributo name "custom_gender" e um placeholder "Gênero (opcional)"', () => {
-      
+    const firstname = 'John';
+    const lastname = 'Doe';
+    const phoneEmail = 'johndoe@trybe.com';
+    const birthdate = '01/01/1990';
+    const password = 'changeme';
+  
+    function fillForm() {
+      cy.visit('./index.html');
+
+      cy.get('input[name="firstname"]').type(firstname);
+      cy.get('input[name="lastname"]').type(lastname);
+      cy.get('input[name="phone_email"]').type(phoneEmail);
+      cy.get('input[name="birthdate"]').type(birthdate);
+    }
+
+    beforeEach(() => {
+      cy.visit('./index.html');
+      cy.get('input[name="gender"]').check('Personalizado');
+    });
+
+    it('O novo campo dever ser uma campo de texto com o atributo name "gender-custom" e um placeholder "Gênero (opcional)"', () => {
+      cy.get('input[name="gender-custom"]').should('exist');
     });    
 
     it('O novo campo deve estar posicionado entre as opções de gênero e o botão "Cadastrar-se"', () => {
-      
-    });
+      checkIsBelowOf('input[name="gender"]', 'input[name="gender-custom"]');
 
-    it('Este campo não é obrigatório', () => {
-      
+      checkIsBelowOf('input[name="gender-custom"]', REGISTER_BUTTON_SELECTOR);
     });
   });
 
-  describe('Se o formulário estiver preenchido e validado exibir uma mensagem para o usuário', () => {
-    it('Exibir um alerta com uma mensagem no modelo "Bem vindo(a) ao facebook, Jonh Doe" (substitua John Doe pelo nome e sobrenome da pessoa)', () => {
-      
+  describe('Se o formulário estiver preenchido e validado substitua todo o conteúdo container com a classe right-content', () => {
+    const firstname = 'John';
+    const lastname = 'Doe';
+    const phoneEmail = 'johndoe@trybe.com';
+    const birthdate = '01/01/1990';
+    const password = 'changeme';
+  
+    function fillForm() {
+      cy.visit('./index.html');
+
+      cy.get('input[name="firstname"]').type(firstname);
+      cy.get('input[name="lastname"]').type(lastname);
+      cy.get('input[name="phone_email"]').type(phoneEmail);
+      cy.get('input[name="birthdate"]').type(birthdate);
+      cy.get('input[name="gender"]').check('Feminino')
+    }
+
+    beforeEach(() => {
+      fillForm();
+      cy.get(REGISTER_BUTTON_SELECTOR).click();
+    });
+
+    it('Deve haver um texto no modelo "Olá, Jonh Doe" (substitua John Doe pelo nome e sobrenome preenchido no formulário)', () => {
+      cy.get('.main-content .right-content')
+        .contains(`Olá, ${firstname} ${lastname}`)
+    });
+
+    it('Exibir o e-mail ou telefone', () => {
+      cy.get('.main-content .right-content')
+        .contains(phoneEmail);
+    });
+
+    it('Exibir a data de nascimento', () => {
+      cy.get('.main-content .right-content').contains(birthdate);
+    });
+
+    describe('Exibir o gênero preenchido de acordo com as seguintes regras', () => {
+      it('Caso seja Masculino exibir "Masculino"', () => {
+        fillForm();
+        cy.get('input[name="gender"]').check('Masculino')
+        cy.get(REGISTER_BUTTON_SELECTOR).click();
+
+        cy.get('.main-content .right-content').contains('Masculino');
+      });
+
+      it('Caso seja Feminino exibir "Feminino"', () => {
+        fillForm();
+        cy.get('input[name="gender"]').check('Feminino')
+        cy.get(REGISTER_BUTTON_SELECTOR).click();
+
+        cy.get('.main-content .right-content').contains('Feminino');
+      });
+
+      describe('Caso seja Personalizado exibir "Personalizado"', () => {
+        it('Caso tenha preenchido o campo "Gênero (Opcional) exibir "Personalizado: (valor preenchido)"', () => {
+          let genderOptional = 'LGBT';
+          fillForm();
+          cy.get('input[name="gender"]').check('Personalizado')
+          cy.get('input[name="gender-custom"]').type(genderOptional);
+          cy.get(REGISTER_BUTTON_SELECTOR).click();
+
+          cy.get('.main-content .right-content').contains('Personalizado: ' + genderOptional);
+        });
+
+        it('Caso não tenha preenchido o campo "Gênero (Opcional) exibir "Personalizado: não informado"', () => {
+          fillForm();
+          cy.get('input[name="gender"]').check('Personalizado')
+          cy.get(REGISTER_BUTTON_SELECTOR).click();
+
+          cy.get('.main-content .right-content').contains('Personalizado: não informado');
+        });
+      });
+    });
+
+    it('Não exibir a senha', () => {
+      cy.get('.main-content .right-content').should('not.contain', password);
     });
   });
 });
