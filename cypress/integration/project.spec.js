@@ -434,6 +434,7 @@ describe('Facebook Signup', () => {
       cy.get('input[name="firstname"]').type(firstname);
       cy.get('input[name="lastname"]').type(lastname);
       cy.get('input[name="phone_email"]').type(phoneEmail);
+      cy.get('input[name="password"]').type(password);
       cy.get('input[name="birthdate"]').type(birthdate);
     }
 
@@ -457,8 +458,8 @@ describe('Facebook Signup', () => {
     const firstname = 'John';
     const lastname = 'Doe';
     const phoneEmail = 'johndoe@trybe.com';
-    const birthdate = '01/01/1990';
     const password = 'changeme';
+    const birthdate = '01/01/1990';
   
     function fillForm() {
       cy.visit('./index.html');
@@ -466,6 +467,7 @@ describe('Facebook Signup', () => {
       cy.get('input[name="firstname"]').type(firstname);
       cy.get('input[name="lastname"]').type(lastname);
       cy.get('input[name="phone_email"]').type(phoneEmail);
+      cy.get('input[name="password"]').type(phoneEmail);
       cy.get('input[name="birthdate"]').type(birthdate);
       cy.get('input[name="gender"]').check('Feminino')
     }
