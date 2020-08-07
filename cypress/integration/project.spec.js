@@ -37,18 +37,15 @@ const evaluateOffset = (doc, selector, offsetType) => {
 const checkIsRightOf = (elementLeftSelector, elementRightSelector) => {
   cy.document().then(doc => {
     const elementLeft = {
-      top: evaluateOffset(doc, elementLeftSelector, 'top'),
       left: evaluateOffset(doc, elementLeftSelector, 'left'),
       width: evaluateOffset(doc, elementLeftSelector, 'width'),
     };
 
     const elementRight = {
-      top: evaluateOffset(doc, elementRightSelector, 'top'),
       left: evaluateOffset(doc, elementRightSelector, 'left'),
-      width: evaluateOffset(doc, elementRightSelector, 'width'),
     };
 
-    expect(elementLeft.top === elementRight.top && elementRight.left >= elementLeft.left + elementLeft.width).to.be.true;
+    expect(elementRight.left >= elementLeft.left + elementLeft.width).to.be.true;
   });
 };
 
@@ -181,8 +178,6 @@ describe('Facebook Signup', () => {
       cy.get("form.facebook-login .form-control #button-login")
         .should('exist')
         .should('have.text', 'Entrar');
-
-        checkIsRightOf(USER_PASSWORD_INPUT_SELECTOR, USER_LOGIN_BUTTON_SELECTOR);
     });
 
     it('O botão deve estar alinhado a direita do campo de entrada para senha', () => {
