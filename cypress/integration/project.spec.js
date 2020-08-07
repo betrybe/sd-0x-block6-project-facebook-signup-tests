@@ -493,42 +493,28 @@ describe('Facebook Signup', () => {
       cy.get('.main-content .right-content').contains(birthdate);
     });
 
-    context('Exibir o gênero preenchido de acordo com as seguintes regras', () => {
-      it('Caso a opção selecionada seja Masculino exibir "Masculino"', () => {
-        fillForm();
-        cy.get('input[name="gender"]').check('Masculino')
-        cy.get(REGISTER_BUTTON_SELECTOR).click();
+    it('Caso a opção selecionada no campo Gênero seja Feminino exibir "Feminino"', () => {
+      fillForm();
+      cy.get('input[name="gender"]').check('Feminino')
+      cy.get(REGISTER_BUTTON_SELECTOR).click();
 
-        cy.get('.main-content .right-content').contains('Masculino');
-      });
+      cy.get('.main-content .right-content').contains('Feminino');
+    });
 
-      it('Caso a opção selecionada seja Feminino exibir "Feminino"', () => {
-        fillForm();
-        cy.get('input[name="gender"]').check('Feminino')
-        cy.get(REGISTER_BUTTON_SELECTOR).click();
+    it('Caso a opção selecionada no campo Gênero seja Masculino exibir "Masculino"', () => {
+      fillForm();
+      cy.get('input[name="gender"]').check('Masculino')
+      cy.get(REGISTER_BUTTON_SELECTOR).click();
 
-        cy.get('.main-content .right-content').contains('Feminino');
-      });
+      cy.get('.main-content .right-content').contains('Masculino');
+    });
 
-      context('Caso a opção selecionada seja Personalizado exibir "Personalizado":', () => {
-        it('Caso tenha preenchido o campo "Gênero (Opcional) exibir "Personalizado: (valor preenchido)"', () => {
-          let genderOptional = 'LGBT';
-          fillForm();
-          cy.get('input[name="gender"]').check('Personalizado')
-          cy.get('input[name="gender-custom"]').type(genderOptional);
-          cy.get(REGISTER_BUTTON_SELECTOR).click();
+    it('Caso a opção selecionada no campo Gênero seja Personalizado exibir "Personalizado"', () => {
+      fillForm();
+      cy.get('input[name="gender"]').check('Personalizado')
+      cy.get(REGISTER_BUTTON_SELECTOR).click();
 
-          cy.get('.main-content .right-content').contains('Personalizado: ' + genderOptional);
-        });
-
-        it('Caso não tenha preenchido o campo "Gênero (Opcional) exibir "Personalizado: não informado"', () => {
-          fillForm();
-          cy.get('input[name="gender"]').check('Personalizado')
-          cy.get(REGISTER_BUTTON_SELECTOR).click();
-
-          cy.get('.main-content .right-content').contains('Personalizado: não informado');
-        });
-      });
+      cy.get('.main-content .right-content').contains('Personalizado');
     });
   });
 });
