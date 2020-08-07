@@ -493,7 +493,7 @@ describe('Facebook Signup', () => {
       cy.get('.main-content .right-content').contains(birthdate);
     });
 
-    describe('Exibir o gênero preenchido de acordo com as seguintes regras', () => {
+    context('Exibir o gênero preenchido de acordo com as seguintes regras', () => {
       it('Caso a opção selecionada seja Masculino exibir "Masculino"', () => {
         fillForm();
         cy.get('input[name="gender"]').check('Masculino')
@@ -510,7 +510,7 @@ describe('Facebook Signup', () => {
         cy.get('.main-content .right-content').contains('Feminino');
       });
 
-      describe('Caso a opção selecionada seja Personalizado exibir "Personalizado":', () => {
+      context('Caso a opção selecionada seja Personalizado exibir "Personalizado":', () => {
         it('Caso tenha preenchido o campo "Gênero (Opcional) exibir "Personalizado: (valor preenchido)"', () => {
           let genderOptional = 'LGBT';
           fillForm();
