@@ -92,9 +92,9 @@ describe('Facebook Signup', () => {
     it('Deve existir um elemento img com a classe facebook-logo', () => {
       cy.get(FACEBOOK_LOGOTIPO_SELECTOR).should('exist');
     });
-
+    
     it('O atributo src do logotipo deve apontar para imgs/facebook-logo.png', () => {
-      cy.get(FACEBOOK_LOGOTIPO_SELECTOR).should('have.attr', 'src').should('equal', 'imgs/facebook-logo.png')
+      cy.get(FACEBOOK_LOGOTIPO_SELECTOR).should('have.attr', 'src').should('equal','imgs/facebook-logo.png')
     });
   });
 
@@ -113,7 +113,7 @@ describe('Facebook Signup', () => {
   });
 
   describe('Crie uma classe no CSS chamada form-group', () => {
-    it('Essa classe deve possuir a propriedade `display: flex`', () => {
+    it('Essa classe deve possuir a propriedade `diplay: flex`', () => {
       cy.get('.form-group').should('have.css', 'display', 'flex');
     });
 
@@ -122,13 +122,13 @@ describe('Facebook Signup', () => {
     });
   });
 
-  describe('Adicione um subcontainer com a classe form-group para agrupar o rótulo e campo "E-mail ou telefone" dentro do formulário criado na etapa 3', () => {
+  describe('Adicione o primeiro subcontainer com a classe form-group para agrupar o rótulo e campo "E-mail ou telefone" dentro do formulário criado na etapa 3', () => {
     it('Deve haver um container utilizando a classe `form-group` criada no passo anterior', () => {
       cy.get('form.facebook-login').children().first()
         .should('exist')
         .should('have.class', 'form-group')
     });
-
+  
     it('Dentro do container `form-group` criado, deve haver um rótulo com o id user-email-phone-label e o texto "Email ou telefone"', () => {
       cy.get(USER_IDENTIFIER_LABEL_SELECTOR).parent().should('have.class', 'form-group');
 
@@ -139,18 +139,18 @@ describe('Facebook Signup', () => {
 
     it('Dentro do container `form-group` criado, abaixo do rótulo deve haver campo de entrada de texto para receber o email ou o telefone do usuário com o id user-email-phone', () => {
       cy.get(USER_IDENTIFIER_INPUT_SELECTOR).should('exist');
-
+      
       cy.get(USER_IDENTIFIER_INPUT_SELECTOR).parent().should('have.class', 'form-group');
 
       checkIsBelowOf(USER_IDENTIFIER_LABEL_SELECTOR, USER_IDENTIFIER_INPUT_SELECTOR);
     });
   });
 
-  describe('Adicione um subcontainer com a classe form-group para agrupar o rótulo e campo "Senha" dentro do formulário criado na etapa 3', () => {
+  describe('Adicione o segundo subcontainer com a classe form-group para agrupar o rótulo e campo "Senha" dentro do formulário criado na etapa 3', () => {
     it('Deve haver um novo container utilizando a classe `form-group` criada no passo 4', () => {
       cy.get("form.facebook-login > .form-group").eq(1).should('exist');
     });
-
+  
     it('Dentro do novo container `form-group` criado, deve haver um rótulo com o id user-password-label e o texto "Senha"', () => {
       cy.get("form.facebook-login .form-group label#user-password-label")
         .should('exist')
@@ -165,7 +165,7 @@ describe('Facebook Signup', () => {
     });
   });
 
-  describe('Adicione um subcontainer com a classe form-control com o botão "Entrar" dentro do formulário criado na etapa 3', () => {
+  describe('Adicione o terceiro subcontainer com a classe form-control com o botão "Entrar" dentro do formulário criado na etapa 3', () => {
     it('Deve haver um novo container utilizando a classe `form-control` criada no passo anterior`', () => {
       cy.get("form.facebook-login > .form-control").eq(0).should('exist');
     });
@@ -187,18 +187,18 @@ describe('Facebook Signup', () => {
     it('Ao clicar no botão com o id #button-login deve exibir um alert com o valor do campo "Email ou telefone"', () => {
       const content = 'my-user';
       let alerted = false;
-
+  
       cy.on('window:alert', (text) => {
         expect(text).to.equal(content);
         alerted = true;
       });
 
-
+  
       cy.get(USER_IDENTIFIER_INPUT_SELECTOR).type(content);
       cy.get(USER_LOGIN_BUTTON_SELECTOR)
         .should('exist')
         .should('have.text', 'Entrar')
-        .click().then(() => {
+        .click().then(()=> {
           expect(alerted).to.eq(true);
         });
     });
@@ -239,7 +239,7 @@ describe('Facebook Signup', () => {
       cy.get('.main-content > .left-content img#facebook-networking')
         .should('exist')
         .should('have.attr', 'src', 'imgs/networking.png');
-
+        
       checkIsBelowOf(FACEBOOK_SLOGAN_SELECTOR, FACEBOOK_NETWORKING_IMG_SELECTOR);
     });
   });
@@ -282,7 +282,7 @@ describe('Facebook Signup', () => {
 
   describe("Crie um campo de entrada de texto para o nome do usuário dentro do formulário criado no requisito 10", () => {
     it('O campo deve ter o atributo name com o valor "firstname"', () => {
-      cy.get('.main-content form input[name="firstname"]').should('exist');
+      cy.get('.main-content form input[name="firstname"]').should('exist');    
     });
 
     it('O campo deve ter um placeholder com o valor "Nome"', () => {
@@ -292,7 +292,7 @@ describe('Facebook Signup', () => {
 
   describe("Crie um campo de entrada de texto para o sobrenome do usuário dentro do formulário criado no requisito 10", () => {
     it('O campo deve ter o atributo name com o valor "lastname"', () => {
-      cy.get('.main-content form input[name="lastname"]').should('exist');
+      cy.get('.main-content form input[name="lastname"]').should('exist');    
     });
 
     it('O campo deve ter um placeholder com o valor "Sobrenome"', () => {
@@ -306,7 +306,7 @@ describe('Facebook Signup', () => {
 
   describe("Crie um campo de entrada de texto para o celular ou email do usuário dentro do formulário criado no requisito 10", () => {
     it('O campo deve ter o atributo name com o valor "phone_email"', () => {
-      cy.get('.main-content form input[name="phone_email"]').should('exist');
+      cy.get('.main-content form input[name="phone_email"]').should('exist');    
     });
 
     it('O campo deve ter um placeholder com o valor "Celular ou email"', () => {
@@ -320,7 +320,7 @@ describe('Facebook Signup', () => {
 
   describe("Crie um campo de entrada para senha do usuário dentro do formulário criado no requisito 10", () => {
     it('O campo deve ter o atributo name com o valor "password"', () => {
-      cy.get('.main-content form input[name="password"]').should('exist');
+      cy.get('.main-content form input[name="password"]').should('exist');    
     });
 
     it('O campo deve ser do tipo "password"', () => {
@@ -342,7 +342,7 @@ describe('Facebook Signup', () => {
     });
 
     it('O campo deve ter o atributo name com o valor "birthdate"', () => {
-      cy.get('.main-content form input[name="birthdate"]').should('exist');
+      cy.get('.main-content form input[name="birthdate"]').should('exist');    
     });
 
     it('O campo deve ter um placeholder com o valor "dd/mm/aaaa"', () => {
@@ -386,7 +386,7 @@ describe('Facebook Signup', () => {
         const topOptions = []
         let topLabel = evaluateOffset(doc, '.main-content form label#label-gender', 'top');
         let heightLabel = evaluateOffset(doc, '.main-content form label#label-gender', 'height');
-
+      
         cy.get("input[type='radio']")
           .should(($radios) => {
             $radios.each((index, radio) => {
@@ -395,10 +395,10 @@ describe('Facebook Signup', () => {
 
             expect([...new Set(topOptions)][0] > (topLabel + heightLabel)).to.equal(true);
           });
-      });
+        }); 
     });
   });
-
+  
   describe("Crie um botão para finalizar o cadastro dentro do formulário criado no requisito 10", () => {
     it('Um botão com o texto "Cadastre-se" e id "facebook-register"', () => {
       cy.get(REGISTER_BUTTON_SELECTOR)
@@ -407,7 +407,7 @@ describe('Facebook Signup', () => {
     });
 
     it('Deve ter a propriedade type igual a submit', () => {
-      cy.get(REGISTER_BUTTON_SELECTOR).should('have.attr', 'type').should('equal', 'submit')
+      cy.get(REGISTER_BUTTON_SELECTOR).should('have.attr', 'type').should('equal','submit')
     });
   });
 
@@ -418,7 +418,7 @@ describe('Facebook Signup', () => {
       cy.get(REGISTER_BUTTON_SELECTOR).click();
 
       cy.get('.main-content form').contains('Campos inválidos');
-    });
+    });    
   });
 
   describe('Adicione um novo campo de texto no formulário se a pessoa usuária selecionar a opção "Personalizado" no campo Gênero', () => {
@@ -427,7 +427,7 @@ describe('Facebook Signup', () => {
     const phoneEmail = 'johndoe@trybe.com';
     const birthdate = '01/01/1990';
     const password = 'changeme';
-
+  
     function fillForm() {
       cy.visit('./index.html');
 
@@ -445,7 +445,7 @@ describe('Facebook Signup', () => {
 
     it('O novo campo dever ser uma campo de texto com o atributo name "gender-custom" e um placeholder "Gênero (opcional)"', () => {
       cy.get('input[name="gender-custom"]').should('exist');
-    });
+    });    
 
     it('O novo campo deve estar posicionado entre as opções de gênero e o botão "Cadastrar-se"', () => {
       checkIsBelowOf('input[name="gender"]', 'input[name="gender-custom"]');
@@ -460,7 +460,7 @@ describe('Facebook Signup', () => {
     const phoneEmail = 'johndoe@trybe.com';
     const password = 'changeme';
     const birthdate = '01/01/1990';
-
+  
     function fillForm() {
       cy.visit('./index.html');
 
