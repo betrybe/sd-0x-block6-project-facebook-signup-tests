@@ -393,7 +393,7 @@ describe('Facebook Signup', () => {
               topOptions.push(radio.getBoundingClientRect()[`top`]);
             });
 
-            expect([...new Set(topOptions)][0] > (topLabel + heightLabel)).to.equal(true);
+            expect([...new Set(topOptions)][0] >= (topLabel + heightLabel)).to.equal(true);
           });
         }); 
     });
